@@ -1,0 +1,410 @@
+
+bin\Debug\Case_study.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000022e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .fuse         00000003  00820000  00820000  000002a2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .debug_aranges 000000a0  00000000  00000000  000002a5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 000000e7  00000000  00000000  00000345  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000540  00000000  00000000  0000042c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000002c6  00000000  00000000  0000096c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000052b  00000000  00000000  00000c32  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  000000d0  00000000  00000000  00001160  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000178  00000000  00000000  00001230  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000160  00000000  00000000  000013a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 f7 00 	call	0x1ee	; 0x1ee <main>
+  78:	0c 94 15 01 	jmp	0x22a	; 0x22a <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <Activity1_init>:
+
+#include "Activity1.h"
+
+void Activity1_init(){
+
+    DDRB = DDRB |  (1<<PB0);
+  80:	20 9a       	sbi	0x04, 0	; 4
+    PORTB = PORTB & ~(1<<PB0);
+  82:	28 98       	cbi	0x05, 0	; 5
+
+    //Set D0 as Input and initialize it to high
+    DDRD = DDRD & ~(1<<PD0);
+  84:	50 98       	cbi	0x0a, 0	; 10
+    PORTD = PORTD | (1<<PD0);
+  86:	58 9a       	sbi	0x0b, 0	; 11
+
+    //Set D1 as Input and initialize it to high
+    DDRD = DDRD & ~(1<<PD1);
+  88:	51 98       	cbi	0x0a, 1	; 10
+    PORTD = PORTD | (1<<PD1);
+  8a:	59 9a       	sbi	0x0b, 1	; 11
+}
+  8c:	08 95       	ret
+
+0000008e <ADConverter_init>:
+#include "Activity2.h"
+
+void ADConverter_init() {
+    ADMUX|=(1<<REFS0);
+  8e:	ec e7       	ldi	r30, 0x7C	; 124
+  90:	f0 e0       	ldi	r31, 0x00	; 0
+  92:	80 81       	ld	r24, Z
+  94:	80 64       	ori	r24, 0x40	; 64
+  96:	80 83       	st	Z, r24
+    ADCSRA|=(1<<ADEN)|(7<<ADPS0);
+  98:	ea e7       	ldi	r30, 0x7A	; 122
+  9a:	f0 e0       	ldi	r31, 0x00	; 0
+  9c:	80 81       	ld	r24, Z
+  9e:	87 68       	ori	r24, 0x87	; 135
+  a0:	80 83       	st	Z, r24
+
+}
+  a2:	08 95       	ret
+
+000000a4 <Read_ADC>:
+uint16_t Read_ADC(uint8_t ch){
+    ADMUX&=0xF8;
+  a4:	90 91 7c 00 	lds	r25, 0x007C
+  a8:	98 7f       	andi	r25, 0xF8	; 248
+  aa:	90 93 7c 00 	sts	0x007C, r25
+    ch=ch&0b00000111;
+    ADMUX|=ch;
+  ae:	90 91 7c 00 	lds	r25, 0x007C
+  b2:	87 70       	andi	r24, 0x07	; 7
+  b4:	89 2b       	or	r24, r25
+  b6:	80 93 7c 00 	sts	0x007C, r24
+    ADCSRA |=(1<<ADSC);
+  ba:	80 91 7a 00 	lds	r24, 0x007A
+  be:	80 64       	ori	r24, 0x40	; 64
+  c0:	80 93 7a 00 	sts	0x007A, r24
+    while(!(ADCSRA&(1<<ADIF)));
+  c4:	80 91 7a 00 	lds	r24, 0x007A
+  c8:	84 ff       	sbrs	r24, 4
+  ca:	fc cf       	rjmp	.-8      	; 0xc4 <Read_ADC+0x20>
+    ADCSRA|(1<<ADIF);
+  cc:	80 91 7a 00 	lds	r24, 0x007A
+    return(ADC);
+  d0:	20 91 78 00 	lds	r18, 0x0078
+  d4:	30 91 79 00 	lds	r19, 0x0079
+
+}
+  d8:	c9 01       	movw	r24, r18
+  da:	08 95       	ret
+
+000000dc <PWM_init>:
+#include<util/delay.h>
+
+void PWM_init(void)
+{
+    /*Configuring the registers and ports*/
+    TCCR1A|=(1<<COM1A1)|(1<<WGM10)|(1<<WGM11);
+  dc:	e0 e8       	ldi	r30, 0x80	; 128
+  de:	f0 e0       	ldi	r31, 0x00	; 0
+  e0:	80 81       	ld	r24, Z
+  e2:	83 68       	ori	r24, 0x83	; 131
+  e4:	80 83       	st	Z, r24
+    TCCR1B|=(1<<WGM12)|(1<<CS11)|(1<<CS10);
+  e6:	e1 e8       	ldi	r30, 0x81	; 129
+  e8:	f0 e0       	ldi	r31, 0x00	; 0
+  ea:	80 81       	ld	r24, Z
+  ec:	8b 60       	ori	r24, 0x0B	; 11
+  ee:	80 83       	st	Z, r24
+    DDRB|=(1<<PB1);
+  f0:	21 9a       	sbi	0x04, 1	; 4
+
+}
+  f2:	08 95       	ret
+
+000000f4 <PWM>:
+
+char PWM (uint16_t ADC_val)
+{
+  f4:	9c 01       	movw	r18, r24
+    char temperature;
+
+    if((ADC_val>=0) && (ADC_val<=209)){
+  f6:	82 3d       	cpi	r24, 0xD2	; 210
+  f8:	91 05       	cpc	r25, r1
+  fa:	a0 f4       	brcc	.+40     	; 0x124 <PWM+0x30>
+
+        OCR1A = 205; //20% duty cycle
+  fc:	8d ec       	ldi	r24, 0xCD	; 205
+  fe:	90 e0       	ldi	r25, 0x00	; 0
+ 100:	90 93 89 00 	sts	0x0089, r25
+ 104:	80 93 88 00 	sts	0x0088, r24
+ 108:	20 e0       	ldi	r18, 0x00	; 0
+ 10a:	30 e0       	ldi	r19, 0x00	; 0
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 10c:	40 e9       	ldi	r20, 0x90	; 144
+ 10e:	51 e0       	ldi	r21, 0x01	; 1
+ 110:	ca 01       	movw	r24, r20
+ 112:	01 97       	sbiw	r24, 0x01	; 1
+ 114:	f1 f7       	brne	.-4      	; 0x112 <PWM+0x1e>
+ 116:	2f 5f       	subi	r18, 0xFF	; 255
+ 118:	3f 4f       	sbci	r19, 0xFF	; 255
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 11a:	28 3c       	cpi	r18, 0xC8	; 200
+ 11c:	31 05       	cpc	r19, r1
+ 11e:	c1 f7       	brne	.-16     	; 0x110 <PWM+0x1c>
+ 120:	84 e1       	ldi	r24, 0x14	; 20
+ 122:	08 95       	ret
+        temperature = 20;
+        _delay_ms(20);
+    }
+    else if((ADC_val>=210) && (ADC_val<=509)){
+ 124:	82 5d       	subi	r24, 0xD2	; 210
+ 126:	90 40       	sbci	r25, 0x00	; 0
+ 128:	8c 52       	subi	r24, 0x2C	; 44
+ 12a:	91 40       	sbci	r25, 0x01	; 1
+ 12c:	a0 f4       	brcc	.+40     	; 0x156 <PWM+0x62>
+
+        OCR1A = 410; //40% duty cycle
+ 12e:	8a e9       	ldi	r24, 0x9A	; 154
+ 130:	91 e0       	ldi	r25, 0x01	; 1
+ 132:	90 93 89 00 	sts	0x0089, r25
+ 136:	80 93 88 00 	sts	0x0088, r24
+ 13a:	20 e0       	ldi	r18, 0x00	; 0
+ 13c:	30 e0       	ldi	r19, 0x00	; 0
+ 13e:	40 e9       	ldi	r20, 0x90	; 144
+ 140:	51 e0       	ldi	r21, 0x01	; 1
+ 142:	ca 01       	movw	r24, r20
+ 144:	01 97       	sbiw	r24, 0x01	; 1
+ 146:	f1 f7       	brne	.-4      	; 0x144 <PWM+0x50>
+ 148:	2f 5f       	subi	r18, 0xFF	; 255
+ 14a:	3f 4f       	sbci	r19, 0xFF	; 255
+ 14c:	28 3c       	cpi	r18, 0xC8	; 200
+ 14e:	31 05       	cpc	r19, r1
+ 150:	c1 f7       	brne	.-16     	; 0x142 <PWM+0x4e>
+ 152:	89 e1       	ldi	r24, 0x19	; 25
+ 154:	08 95       	ret
+        temperature = 25;
+       _delay_ms(20);
+    }
+    else if((ADC_val>=510) && (ADC_val<=709)){
+ 156:	c9 01       	movw	r24, r18
+ 158:	8e 5f       	subi	r24, 0xFE	; 254
+ 15a:	91 40       	sbci	r25, 0x01	; 1
+ 15c:	88 3c       	cpi	r24, 0xC8	; 200
+ 15e:	91 05       	cpc	r25, r1
+ 160:	a0 f4       	brcc	.+40     	; 0x18a <PWM+0x96>
+
+        OCR1A = 717;//70% duty cycle
+ 162:	8d ec       	ldi	r24, 0xCD	; 205
+ 164:	92 e0       	ldi	r25, 0x02	; 2
+ 166:	90 93 89 00 	sts	0x0089, r25
+ 16a:	80 93 88 00 	sts	0x0088, r24
+ 16e:	20 e0       	ldi	r18, 0x00	; 0
+ 170:	30 e0       	ldi	r19, 0x00	; 0
+ 172:	40 e9       	ldi	r20, 0x90	; 144
+ 174:	51 e0       	ldi	r21, 0x01	; 1
+ 176:	ca 01       	movw	r24, r20
+ 178:	01 97       	sbiw	r24, 0x01	; 1
+ 17a:	f1 f7       	brne	.-4      	; 0x178 <PWM+0x84>
+ 17c:	2f 5f       	subi	r18, 0xFF	; 255
+ 17e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 180:	28 3c       	cpi	r18, 0xC8	; 200
+ 182:	31 05       	cpc	r19, r1
+ 184:	c1 f7       	brne	.-16     	; 0x176 <PWM+0x82>
+ 186:	8d e1       	ldi	r24, 0x1D	; 29
+ 188:	08 95       	ret
+        temperature = 29;
+        _delay_ms(20);
+    }
+    else if((ADC_val>=710) && (ADC_val<=1024)){
+ 18a:	26 5c       	subi	r18, 0xC6	; 198
+ 18c:	32 40       	sbci	r19, 0x02	; 2
+ 18e:	2b 53       	subi	r18, 0x3B	; 59
+ 190:	31 40       	sbci	r19, 0x01	; 1
+ 192:	a0 f4       	brcc	.+40     	; 0x1bc <PWM+0xc8>
+
+        OCR1A = 973; //95% duty cycle
+ 194:	8d ec       	ldi	r24, 0xCD	; 205
+ 196:	93 e0       	ldi	r25, 0x03	; 3
+ 198:	90 93 89 00 	sts	0x0089, r25
+ 19c:	80 93 88 00 	sts	0x0088, r24
+ 1a0:	20 e0       	ldi	r18, 0x00	; 0
+ 1a2:	30 e0       	ldi	r19, 0x00	; 0
+ 1a4:	40 e9       	ldi	r20, 0x90	; 144
+ 1a6:	51 e0       	ldi	r21, 0x01	; 1
+ 1a8:	ca 01       	movw	r24, r20
+ 1aa:	01 97       	sbiw	r24, 0x01	; 1
+ 1ac:	f1 f7       	brne	.-4      	; 0x1aa <PWM+0xb6>
+ 1ae:	2f 5f       	subi	r18, 0xFF	; 255
+ 1b0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1b2:	28 3c       	cpi	r18, 0xC8	; 200
+ 1b4:	31 05       	cpc	r19, r1
+ 1b6:	c1 f7       	brne	.-16     	; 0x1a8 <PWM+0xb4>
+ 1b8:	81 e2       	ldi	r24, 0x21	; 33
+ 1ba:	08 95       	ret
+        temperature = 33;
+        _delay_ms(20);
+    }
+    else{
+        OCR1A = 0; //0% output
+ 1bc:	10 92 89 00 	sts	0x0089, r1
+ 1c0:	10 92 88 00 	sts	0x0088, r1
+ 1c4:	80 e0       	ldi	r24, 0x00	; 0
+        temperature = 0;
+    }
+    return temperature;
+}
+ 1c6:	08 95       	ret
+
+000001c8 <UART_init>:
+#include<avr/io.h>
+#include"Activity4.h"
+
+void UART_init(uint16_t ubrr_value){
+
+    UBRR0L = ubrr_value;
+ 1c8:	80 93 c4 00 	sts	0x00C4, r24
+    UBRR0H = (ubrr_value>>8)&(0x00ff);
+ 1cc:	90 93 c5 00 	sts	0x00C5, r25
+    UCSR0C = (1<<UMSEL00)|(1<<UCSZ01)|(1<<UCSZ01);
+ 1d0:	84 e4       	ldi	r24, 0x44	; 68
+ 1d2:	80 93 c2 00 	sts	0x00C2, r24
+
+    UCSR0B = (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0)|(1<<TXCIE0);
+ 1d6:	88 ed       	ldi	r24, 0xD8	; 216
+ 1d8:	80 93 c1 00 	sts	0x00C1, r24
+
+}
+ 1dc:	08 95       	ret
+
+000001de <Write_UART>:
+
+void Write_UART(char data)
+{
+ 1de:	98 2f       	mov	r25, r24
+    while(!(UCSR0A & (1<<UDRE0)))
+ 1e0:	80 91 c0 00 	lds	r24, 0x00C0
+ 1e4:	85 ff       	sbrs	r24, 5
+ 1e6:	fc cf       	rjmp	.-8      	; 0x1e0 <Write_UART+0x2>
+    {
+
+    }
+    UDR0 = data;
+ 1e8:	90 93 c6 00 	sts	0x00C6, r25
+}
+ 1ec:	08 95       	ret
+
+000001ee <main>:
+#include "Activity3.h" // OC1A (B1) to output pwm signal
+#include "Activity4.h" // UART0 is used to actuate the amount of heat
+
+int main(void)
+{
+    Activity1_init();  // Activity1
+ 1ee:	0e 94 40 00 	call	0x80	; 0x80 <Activity1_init>
+    ADConverter_init();// Activity2
+ 1f2:	0e 94 47 00 	call	0x8e	; 0x8e <ADConverter_init>
+    PWM_init();         // Activity3
+ 1f6:	0e 94 6e 00 	call	0xdc	; 0xdc <PWM_init>
+    UART_init(103);     // Activity4
+ 1fa:	87 e6       	ldi	r24, 0x67	; 103
+ 1fc:	90 e0       	ldi	r25, 0x00	; 0
+ 1fe:	0e 94 e4 00 	call	0x1c8	; 0x1c8 <UART_init>
+    uint16_t temp;
+    char temp1;
+    while(1){
+            if(SENSOR_ON) {       // Switch1 ON
+ 202:	49 99       	sbic	0x09, 1	; 9
+ 204:	0c c0       	rjmp	.+24     	; 0x21e <main+0x30>
+                if(HEATER_ON) {    // Switch2 ON
+ 206:	48 99       	sbic	0x09, 0	; 9
+ 208:	fc cf       	rjmp	.-8      	; 0x202 <main+0x14>
+                    LED_ON;         // LED ON
+ 20a:	28 9a       	sbi	0x05, 0	; 5
+                    temp=Read_ADC(0);
+ 20c:	80 e0       	ldi	r24, 0x00	; 0
+ 20e:	0e 94 52 00 	call	0xa4	; 0xa4 <Read_ADC>
+                    temp1=PWM(temp);
+ 212:	0e 94 7a 00 	call	0xf4	; 0xf4 <PWM>
+                    Write_UART(temp1);
+ 216:	0e 94 ef 00 	call	0x1de	; 0x1de <Write_UART>
+    PWM_init();         // Activity3
+    UART_init(103);     // Activity4
+    uint16_t temp;
+    char temp1;
+    while(1){
+            if(SENSOR_ON) {       // Switch1 ON
+ 21a:	49 9b       	sbis	0x09, 1	; 9
+ 21c:	f4 cf       	rjmp	.-24     	; 0x206 <main+0x18>
+
+                 }
+            }
+
+            else {
+            LED_OFF;
+ 21e:	28 98       	cbi	0x05, 0	; 5
+            OCR1A=0;
+ 220:	10 92 89 00 	sts	0x0089, r1
+ 224:	10 92 88 00 	sts	0x0088, r1
+ 228:	ec cf       	rjmp	.-40     	; 0x202 <main+0x14>
+
+0000022a <_exit>:
+ 22a:	f8 94       	cli
+
+0000022c <__stop_program>:
+ 22c:	ff cf       	rjmp	.-2      	; 0x22c <__stop_program>
