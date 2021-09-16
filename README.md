@@ -4,3 +4,6 @@
 
 
  ![Code Quality](https://www.code-inspector.com/project/28877/score/svg)
+
+
+![Code inspector](https://www.code-inspector.com/project/28877/status/svg)
